@@ -1,8 +1,7 @@
 package sit.int202.classicmodels.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import jdk.jfr.Name;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,6 +9,10 @@ import lombok.Setter;
 @Table(name = "offices")
 @Getter
 @Setter
+@NamedQueries({
+        @NamedQuery(name = "Office.FindAll", query = "select o from Office o"),
+                @NamedQuery(name = "Office.FindByCountry", query = "select o from Office o where o.country like :countryParam")
+})
 public class Office {
     @Id
     private String officeCode;
