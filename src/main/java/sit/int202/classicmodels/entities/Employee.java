@@ -24,4 +24,7 @@ public class Employee {
     private String officeCode;
     private Integer reportsTo;
     private String jobTitle;
+    @ManyToOne
+    @JoinColumn(name = "officeCode", nullable = false, insertable = false, updatable = false)
+    private Office office;
 }
