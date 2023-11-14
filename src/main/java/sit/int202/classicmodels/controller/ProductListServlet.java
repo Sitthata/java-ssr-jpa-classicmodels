@@ -20,13 +20,17 @@ public class ProductListServlet extends HttpServlet {
         String pageParam = request.getParameter("page");
         String pageSizeParam = request.getParameter("pageSize");
         int page = pageParam == null ? 1 : Integer.parseInt(pageParam);
-        int pageSize = pageSizeParam == null ? productRepository.getDefaultPageSize() : Integer.valueOf(pageSizeParam);
+        int pageSize = pageSizeParam == null ? productRepository.getDefaultPageSize() : Integer.parseInt(pageSizeParam);
+        int itemCount = productRepository.countAll();
         List<Product> productList = productRepository.findAll(page, pageSize);
         request.setAttribute("products", productList);
         request.setAttribute("page", page);
         request.setAttribute("pageSize", pageSize);
-        request.setAttribute("itemCount", productRepository.countAll());
-        getServletContext().getRequestDispatcher("/product-list.jsp").forward(request, response);
+        request.setAttribute("itemCount", itemCount);
+        int totalPage = itemCount / pageSize + (itemCount % pageSize == 0 ? 0 : 1);
+        request.setAttribute("totalPage", totalPage);
+//        getServletContext().getRequestDispatcher("/product-list.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/product-gallery.jsp").forward(request, response);
     }
 
     @Override

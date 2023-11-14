@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @NamedQueries({
         @NamedQuery(name = "Product.FindAll", query = "SELECT p FROM Product p"),
         @NamedQuery(name = "Product.count", query = "SELECT count(p) as count FROM Product p")
@@ -21,4 +23,7 @@ public class Product {
     private String productVendor;
     private String productDescription;
     private Integer quantityInStock;
+    private BigDecimal buyPrice;
+    @Column(name = "MSRP")
+    private BigDecimal price;
 }
