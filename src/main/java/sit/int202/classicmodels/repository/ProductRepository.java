@@ -21,6 +21,23 @@ public class ProductRepository {
         return em;
     }
 
+    public Product findById(String productCode) {
+        EntityManager entityManager = null;
+        try {
+            entityManager = getEntityManager();
+            return entityManager.find(Product.class, productCode);
+        } catch (Exception e) {
+            // Log the exception
+            System.out.println(e.getMessage());
+            throw new RuntimeException("Cannot find product with id " + productCode);
+        } finally {
+            if (entityManager != null && entityManager.isOpen()) {
+                entityManager.close();
+            }
+        }
+    }
+
+
     public List<Product> findAll(int page, int pageSize) {
         int startPosition = (page - 1) * pageSize;
         EntityManager entityManager = getEntityManager();
