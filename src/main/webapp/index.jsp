@@ -106,7 +106,7 @@
         </button>
         <div class="collapse navbar-collapse" id="mynavbar">
             <ul class="navbar-nav me-auto">
-                <li class="nav-item"><a class="nav-link" href="javascript:loadOffice('')">Office</a></li>
+<%--                <li class="nav-item"><a class="nav-link" href="javascript:loadOffice('')">Office</a></li>--%>
                 <li class="nav-item"><a class="nav-link" href="javascript:loadProduct(1,15)">Product</a></li>
                 <li class="nav-item">
                     <a class="nav-link" href="javascript:void(0)">Order History</a>

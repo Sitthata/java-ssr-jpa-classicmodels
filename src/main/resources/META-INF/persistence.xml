@@ -8,6 +8,7 @@
         <class>sit.int202.classicmodels.entities.Office</class>
         <class>sit.int202.classicmodels.entities.Employee</class>
         <class>sit.int202.classicmodels.entities.Product</class>
+        <class>sit.int202.classicmodels.entities.Customer</class>
         <properties>
             <!-- JDBC properties -->
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
