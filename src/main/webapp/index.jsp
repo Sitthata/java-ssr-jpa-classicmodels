@@ -72,8 +72,41 @@
                 $("#view-cart").html(xhttp.responseText);
                 $("#viewCartModal").modal("show");
             }
-            xhttp.open("GET", "view-cart.jsp");
+            xhttp.open("GET", "view-cart");
             xhttp.send();
+        }
+
+        function login(username, password) {
+            if (username === '' || password === '' || username === undefined) {
+                document.getElementById("login-message").innerHTML = "Invalid user name or password !!!";
+            }
+            const xhttp = new XMLHttpRequest();
+            xhttp.onload = function () {
+                if (xhttp.status === 200) {
+                    $('#modalLoginForm').modal('hide');
+                    document.getElementById("login-menu").innerHTML = "<i class='bi bi-box-arrow-left'></i> Logout"
+                } else if (xhttp.status > 400) {
+                    document.getElementById("login-message").innerHTML = xhttp.statusText;
+                } else {
+                    document.getElementById("login-message").innerHTML = "Wrong user name or password !!!";
+                }
+            }
+            let urlEncodedData = "", urlEncodedDataPairs = [];
+            urlEncodedDataPairs.push(encodeURIComponent("username") + '=' + encodeURIComponent(username));
+            urlEncodedDataPairs.push(encodeURIComponent("password") + '=' + encodeURIComponent(password));
+            urlEncodedData = urlEncodedDataPairs.join('&').replace(/%20/g, '+');
+            xhttp.open("POST", "login");
+            xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhttp.send(urlEncodedData);
+        }
+
+        function showLoginForm() {
+            let menu = document.getElementById("login-menu").innerHTML;
+            if (menu.includes("Logout")) {
+                document.getElementById("login-menu").innerHTML = "<i class='bi bi-box-arrow-right'></i> Login"
+            } else {
+                $('#modalLoginForm').modal('show');
+            }
         }
     </script>
     <style>
@@ -106,13 +139,14 @@
         </button>
         <div class="collapse navbar-collapse" id="mynavbar">
             <ul class="navbar-nav me-auto">
-<%--                <li class="nav-item"><a class="nav-link" href="javascript:loadOffice('')">Office</a></li>--%>
+                <%--                <li class="nav-item"><a class="nav-link" href="javascript:loadOffice('')">Office</a></li>--%>
                 <li class="nav-item"><a class="nav-link" href="javascript:loadProduct(1,15)">Product</a></li>
                 <li class="nav-item">
                     <a class="nav-link" href="javascript:void(0)">Order History</a>
                 </li>
                 <li class="nav-item ml-4">
-                    <a class="nav-link text-light" href="#"><i class="bi bi-box-arrow-in-right"></i> Login</a>
+                    <a class="nav-link text-light" href="javascript:showLoginForm()" id="login-menu"><i
+                            class="bi bi-box-arrow-in-right"></i> Login</a>
                 </li>
             </ul>
             <div style="margin-right: 20px">
@@ -149,5 +183,8 @@
         </div>
     </div>
 </div>
+
+<jsp:include page="WEB-INF/jsp/login-form.html" />
+
 </body>
 </html>
